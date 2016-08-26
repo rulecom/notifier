@@ -1,18 +1,18 @@
 {
-    "name": ":vendor/:package_name",
+    "name": "rulecom/notifier",
     "type": "library",
-    "description": ":package_description",
+    "description": "Send notification via Rule and other providers",
     "keywords": [
-        ":vendor",
-        ":package_name"
+        "rulecom",
+        "notifier"
     ],
-    "homepage": "https://github.com/:vendor/:package_name",
+    "homepage": "https://github.com/rulecom/notifier",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
-            "homepage": ":author_website",
+            "name": "Matthis Stenius",
+            "email": "matthis.stenius@rule.se",
+            "homepage": "https://rule.se",
             "role": "Developer"
         }
     ],
@@ -26,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            ":vendor\\:package_name\\": "src"
+            "RuleCom\\Notifier\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            ":vendor\\:package_name\\": "tests"
+            "RuleCom\\Notifier\\": "tests"
         }
     },
     "scripts": {
