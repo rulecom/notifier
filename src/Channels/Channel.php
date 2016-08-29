@@ -2,5 +2,8 @@
 
 interface Channel
 {
+    /**
+     * Dispatch notification message
+     */
     public function dispatch();
 }

@@ -1,9 +1,11 @@
 <?php namespace RuleCom\Notifier;
 
+use Guzzle\Http\Client;
 use Illuminate\Support\ServiceProvider;
 use Rule\ApiWrapper\Api\V2\Transaction\Transaction;
 use Rule\ApiWrapper\ApiFactory;
 use RuleCom\Notifier\Channels\Email;
+use RuleCom\Notifier\Channels\Slack;
 
 class LaravelServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,14 @@ class LaravelServiceProvider extends ServiceProvider
         $this->app->when(Email::class)
             ->needs(Transaction::class)
             ->give(function ($app) {
-                return ApiFactory::make($app['config']['rule']['api_key'], 'transaction');
+                return ApiFactory::make($app['config']['slack_endpoint']['api_key'], 'transaction');
+            });
+
+        $this->app->when(Slack::class)
+            ->needs(Client::class)
+            ->give(function ($app) {
+                $slack =  new Slack(new Client);
+                $slack->endpoint($app['config']['rule-notifier']['slack_endpoint']);
             });
     }
 
@@ -29,7 +38,7 @@ class LaravelServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/rule.php' => config_path('rule.php'),
+            __DIR__.'/../config/rule-notifier.php' => config_path('rule-notifier.php'),
         ]);
     }
 }
