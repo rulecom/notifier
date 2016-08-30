@@ -1,13 +1,18 @@
 <?php namespace RuleCom\Notifier\Channels;
 
-use Rule\ApiWrapper\Api\V2\Transaction\Transaction;
+use Guzzle\Http\Client;
 
 class Email implements Channel
 {
     /**
      * @var string|null
      */
-    private $transaction;
+    private $guzzle;
+
+    /**
+     * @var string
+     */
+    private $apiKey;
 
     /**
      * @var string
@@ -29,10 +34,19 @@ class Email implements Channel
      */
     private $content = ['html' => '', 'plain' => ''];
 
-
-    public function __construct(Transaction $transaction)
+    public function __construct(Client $guzzle)
     {
-        $this->transaction = $transaction;
+        $this->guzzle = $guzzle;
+    }
+
+    /**
+     * @param string $apiKey
+     * @return $this
+     */
+    public function apiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        return $this;
     }
 
     /**
@@ -80,7 +94,8 @@ class Email implements Channel
      */
     public function dispatch()
     {
-        $this->transaction->send([
+        $this->guzzle->post('https://app.rule.io/api/v2/transactionals', [
+            'apikey' => $this->apiKey,
             'transaction_type' => 'email',
             'transaction_name' => $this->subject,
             'subject' => $this->subject,

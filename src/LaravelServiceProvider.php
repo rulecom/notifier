@@ -17,16 +17,19 @@ class LaravelServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->when(Email::class)
-            ->needs(Transaction::class)
+            ->needs(Client::class)
             ->give(function ($app) {
-                return ApiFactory::make($app['config']['rule-notifier']['api_key'], 'transaction');
+                $channel = new Email(new Client);
+                $channel->apiKey($app['config']['rule-notifier']['api_key']);
+                return $channel;
             });
 
         $this->app->when(Slack::class)
             ->needs(Client::class)
             ->give(function ($app) {
-                $slack =  new Slack(new Client);
-                $slack->endpoint($app['config']['rule-notifier']['slack_endpoint']);
+                $channel = new Slack(new Client);
+                $channel->endpoint($app['config']['rule-notifier']['slack_endpoint']);
+                return $channel;
             });
     }
 
