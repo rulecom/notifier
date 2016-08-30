@@ -1,6 +1,6 @@
 <?php namespace RuleCom\Notifier\Test\Channels;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use PHPUnit_Framework_TestCase;
 use RuleCom\Notifier\Channels\Slack;
 

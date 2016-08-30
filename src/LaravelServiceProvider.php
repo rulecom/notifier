@@ -1,9 +1,7 @@
 <?php namespace RuleCom\Notifier;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
-use Rule\ApiWrapper\Api\V2\Transaction\Transaction;
-use Rule\ApiWrapper\ApiFactory;
 use RuleCom\Notifier\Channels\Email;
 use RuleCom\Notifier\Channels\Slack;
 

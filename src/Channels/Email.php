@@ -1,6 +1,6 @@
 <?php namespace RuleCom\Notifier\Channels;
 
-use Guzzle\Http\Client;
+use GuzzleHttp\Client;
 
 class Email implements Channel
 {
