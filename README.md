@@ -22,8 +22,32 @@ $ composer require rulecom/notifier
 
 ## Usage
 
+To send notification you need to create notification objects that specify to which channel/channels
+you want to send the notification.
+
+```php
+class UserHasRegistered
+{
+    /**
+    * Here we specify through which channels we want to
+    * send our notification.
+    **/
+    public function via()
+    {
+        return ['email', 'slack'];
+    }
+
+    /**
+    * Each via method needs a correspondng to method.
+    * this is where we specify how the message should look.
+    **/
+    public function toEmail()
+    {
+        $transaction = RuleCom\ApiWrapper\Factory::make()
+    }
+}
 ``` php
-$skeleton = new League\Skeleton();
+$notifier = new RuleCom\Notifier();
 echo $skeleton->echoPhrase('Hello, League!');
 ```
 

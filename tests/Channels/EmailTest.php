@@ -14,12 +14,9 @@ class EmailTest extends PHPUnit_Framework_TestCase
         $ruleApiMock = $this->prophesize(Transaction::class);
         $emailChannel = new Email($ruleApiMock->reveal());
         $emailChannel->subject('Test subject')
-            ->fromName('Tester')
-            ->fromEmail('tester@tester.com')
-            ->toName('Tester')
-            ->toEmail('other@tester.com')
-            ->htmlContent('<p>Test content</p>')
-            ->plainContent('Test content')
+            ->from(['name' => 'Tester', 'email' => 'tester@tester.com'])
+            ->to(['name' => 'Tester', 'email' => 'other@tester.com'])
+            ->content(['html' => '<p>Test content</p>', 'plain' => 'Test content'])
             ->dispatch();
 
         $ruleApiMock->send([

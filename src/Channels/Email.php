@@ -12,37 +12,23 @@ class Email implements Channel
     /**
      * @var string
      */
-    private $subject;
+    private $subject = '';
+
+    /**
+     * @var array
+     */
+    private $from = ['name' => '', 'email' => ''];
+
+    /**
+     * @var array
+     */
+    private $to = ['name' => '', 'email' => ''];
 
     /**
      * @var string
      */
-    private $fromName;
+    private $content = ['html' => '', 'plain' => ''];
 
-    /**
-     * @var string
-     */
-    private $fromEmail;
-
-    /**
-     * @var string
-     */
-    private $toName;
-
-    /**
-     * @var string
-     */
-    private $toEmail;
-
-    /**
-     * @var string
-     */
-    private $htmlContent;
-
-    /**
-     * @var string
-     */
-    private $plainContent;
 
     public function __construct(Transaction $transaction)
     {
@@ -60,63 +46,32 @@ class Email implements Channel
     }
 
     /**
-     * @param string $name
+     * @param array $from
      * @return $this
      */
-    public function fromName($name)
+    public function from(array $from)
     {
-        $this->fromName = $name;
-        return $this;
-    }
-
-
-    /**
-     * @param string $email
-     * @return $this
-     */
-    public function fromEmail($email)
-    {
-        $this->fromEmail = $email;
+        $this->from = $from;
         return $this;
     }
 
     /**
-     * @param string $name
+     * @param array $to
      * @return $this
      */
-    public function toName($name)
+    public function to(array $to)
     {
-        $this->toName = $name;
+        $this->to = $to;
         return $this;
     }
 
     /**
-     * @param string$email
+     * @param array $content
      * @return $this
      */
-    public function toEmail($email)
+    public function content($content)
     {
-        $this->toEmail = $email;
-        return $this;
-    }
-
-    /**
-     * @param string $html
-     * @return $this
-     */
-    public function htmlContent($html)
-    {
-        $this->htmlContent = $html;
-        return $this;
-    }
-
-    /**
-     * @param string $plain
-     * @return $this
-     */
-    public function plainContent($plain)
-    {
-        $this->plainContent = $plain;
+        $this->content = $content;
         return $this;
     }
 
@@ -129,18 +84,9 @@ class Email implements Channel
             'transaction_type' => 'email',
             'transaction_name' => $this->subject,
             'subject' => $this->subject,
-            'from' => [
-                'name' => $this->fromName,
-                'email' => $this->fromEmail
-            ],
-            'to' => [
-                'name' => $this->toName,
-                'email' => $this->toEmail
-            ],
-            'content' => [
-                'html' => $this->htmlContent,
-                'plain' => $this->plainContent
-            ]
+            'from' => $this->from,
+            'to' => $this->to,
+            'content' => $this->content
         ]);
     }
 }
