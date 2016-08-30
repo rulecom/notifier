@@ -19,7 +19,7 @@ class LaravelServiceProvider extends ServiceProvider
         $this->app->when(Email::class)
             ->needs(Transaction::class)
             ->give(function ($app) {
-                return ApiFactory::make($app['config']['slack_endpoint']['api_key'], 'transaction');
+                return ApiFactory::make($app['config']['rule-notifier']['api_key'], 'transaction');
             });
 
         $this->app->when(Slack::class)

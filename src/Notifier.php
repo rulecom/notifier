@@ -6,12 +6,13 @@ use Exception;
 class Notifier
 {
     /**
-     * Dispatches notifications for all given channels
+     * Dispatches notifications for all given channels specified
+     * in the Via method on the notification object
      *
      * @param object $notification
      * @throws NotificationFailed
      */
-    public function dispatch($notification)
+    public function send($notification)
     {
         $channelNames = $notification->via();
 

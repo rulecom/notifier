@@ -23,7 +23,7 @@ class NotifierTest extends PHPUnit_Framework_TestCase
         $notificationMock->toTest()
             ->willReturn($channelMock->reveal());
 
-        $notifier->dispatch($notificationMock->reveal());
+        $notifier->send($notificationMock->reveal());
 
         $channelMock->dispatch()
             ->shouldHaveBeenCalled();
@@ -41,7 +41,7 @@ class NotifierTest extends PHPUnit_Framework_TestCase
         $notificationMock->via()
             ->willReturn(['fail']);
 
-        $notifier->dispatch($notificationMock->reveal());
+        $notifier->send($notificationMock->reveal());
     }
 
     /**
@@ -63,6 +63,6 @@ class NotifierTest extends PHPUnit_Framework_TestCase
         $channelMock->dispatch()
             ->willThrow(Exception::class);
 
-        $notifier->dispatch($notificationMock->reveal());
+        $notifier->send($notificationMock->reveal());
     }
 }
