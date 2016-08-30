@@ -21,21 +21,23 @@ class EmailTest extends PHPUnit_Framework_TestCase
             ->dispatch();
 
         $guzzleMock->post('https://app.rule.io/api/v2/transactionals', [
-            'apikey' => 'dummy-api-key',
-            'transaction_type' => 'email',
-            'transaction_name' => 'Test subject',
-            'subject' => 'Test subject',
-            'from' => [
-                'name' => 'Tester',
-                'email' => 'tester@tester.com'
-            ],
-            'to' => [
-                'name' => 'Tester',
-                'email' => 'other@tester.com'
-            ],
-            'content' => [
-                'html' => '<p>Test content</p>',
-                'plain' => 'Test content'
+            'json' => [
+                'apikey' => 'dummy-api-key',
+                'transaction_type' => 'email',
+                'transaction_name' => 'Test subject',
+                'subject' => 'Test subject',
+                'from' => [
+                    'name' => 'Tester',
+                    'email' => 'tester@tester.com'
+                ],
+                'to' => [
+                    'name' => 'Tester',
+                    'email' => 'other@tester.com'
+                ],
+                'content' => [
+                    'html' => '<p>Test content</p>',
+                    'plain' => 'Test content'
+                ]
             ]
         ])->shouldHaveBeenCalled();
     }

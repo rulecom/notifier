@@ -95,13 +95,15 @@ class Email implements Channel
     public function dispatch()
     {
         $this->guzzle->post('https://app.rule.io/api/v2/transactionals', [
-            'apikey' => $this->apiKey,
-            'transaction_type' => 'email',
-            'transaction_name' => $this->subject,
-            'subject' => $this->subject,
-            'from' => $this->from,
-            'to' => $this->to,
-            'content' => $this->content
+            'json' => [
+                'apikey' => $this->apiKey,
+                'transaction_type' => 'email',
+                'transaction_name' => $this->subject,
+                'subject' => $this->subject,
+                'from' => $this->from,
+                'to' => $this->to,
+                'content' => $this->content
+            ]
         ]);
     }
 }
