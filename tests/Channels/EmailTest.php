@@ -35,8 +35,8 @@ class EmailTest extends PHPUnit_Framework_TestCase
                     'email' => 'other@tester.com'
                 ],
                 'content' => [
-                    'html' => '<p>Test content</p>',
-                    'plain' => 'Test content'
+                    'html' => base64_encode('<p>Test content</p>'),
+                    'plain' => base64_encode('Test content')
                 ]
             ]
         ])->shouldHaveBeenCalled();

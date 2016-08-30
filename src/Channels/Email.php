@@ -102,7 +102,10 @@ class Email implements Channel
                 'subject' => $this->subject,
                 'from' => $this->from,
                 'to' => $this->to,
-                'content' => $this->content
+                'content' => [
+                    'html' => base64_encode($this->content['html']),
+                    'plain' => base64_encode($this->content['plain'])
+                ]
             ]
         ]);
     }
