@@ -64,9 +64,12 @@ $notifier->send(new UserHasRegistered());
 
 ### Channels
 
-Currently this package supports sending emails via [Rule][https://rule.se] and messages to [Slack][https://slack.com]
+Currently this package supports the following channel providers:
 
-#### Email:
+* [Rule](https://rule.se) for sending email and text messages.
+* [Slack](https://slack.com) for sending messages to Slack.
+
+#### Email via (Rule):
 
 ``` php
 public function toEmail()
@@ -118,13 +121,12 @@ php artisan vendor:publish
 ```
 
 ``` php
-// Without Laravel you will have to pass the channel dependency:
+// Without Laravel you will have to pass the channel dependency on your own:
 new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
 
 // With Laravel you can resolve the channels with dependencies through the ioc container:
 app(RuleCom\Notifier\Channels\Slack::class)
 ```
-
 
 ## Change log
 
