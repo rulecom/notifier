@@ -22,8 +22,7 @@ $ composer require rulecom/notifier
 
 ## Usage
 
-To send notification you need to create notification objects that specify to which channel/channels
-you want to send the notification.
+To send notification you need to create notification objects. These objects are responsible for telling the Notifier via which channels the notification message should be sent through and how each correspnding channel message should contain.
 
 
 ```php
@@ -33,8 +32,8 @@ use RuleCom\Notifier\Channels\Slack;
 class UserHasRegistered
 {
     /**
-    * Here we specify through which channels we want to
-    * send our notification.
+     * Here we specify through which channels we want to
+     * send our notification.
     **/
     public function via()
     {
@@ -42,7 +41,7 @@ class UserHasRegistered
     }
 
     /**
-    * Each via method needs a correspondng to method.
+     * Each via method needs a correspondng to method.
     **/
     * this is where we specify how the message should be built.
     public function toEmail()
@@ -51,7 +50,7 @@ class UserHasRegistered
     }
 
     /**
-    * Each via method needs a correspondng to method.
+     * Each via method needs a correspondng to method.
     **/
     * this is where we specify how the message should be built.
     public function toSlack()
@@ -75,7 +74,7 @@ Currently this package supports sending emails via [Rule][https://rule.se] and m
 public function toEmail()
 {
     return new (RuleCom\Notifier\Channels\Email(new GuzzleHttp\Client()))
-        ->apikey('YOUR-RULE-API-KEY')
+        ->apikey('YOUR-RULE-API-KEY') // If using Laravel you can set this in config/rule-notifier.php
         ->subject('Hello, world!')
         ->from([
             'name' => 'John Doe',
@@ -97,7 +96,7 @@ public function toEmail()
 public function toSlack()
 {
     return new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
-        ->endpoint('YOUR-SLACK-INCOMING-WEBHOOK')
+        ->endpoint('YOUR-SLACK-INCOMING-WEBHOOK') // If using Laravel you can set this in config/rule-notifier.php
         ->channel('#notification') // Here you can override the channel specified in Slack, or send DM by passing @username
         ->message('Hello, world!');
 }
@@ -105,18 +104,26 @@ public function toSlack()
 
 ### Usage with Laravel
 
-This package can be easily integrated with laravel. When used with Laravel you will not have to pass channel dependencies in your own.
+This package can be easily integrated with laravel, with the following benefits.
 
-In your `config/app.php` add the Service Provider
+* No need to pass in channel dependecies on your own.
+* Ability to specify configurations such as, api key for Rule and webhook for Slack.
+
+1. In your `config/app.php` add the following service provider
 ``` php
 RuleCom\Notifier\LaravelServiceProvider::class
+```
+
+2. Publish the config:
+``` bash
+php artisan vendor:publish
 ```
 
 ``` php
 // Without Laravel you will have to pass the channel dependency:
 new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
 
-// With Laravel you can resolve the channels through the ico container:
+// With Laravel you can resolve the channels with dependencies through the ioc container:
 app(RuleCom\Notifier\Channels\Slack::class)
 ```
 
