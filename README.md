@@ -22,7 +22,7 @@ $ composer require rulecom/notifier
 
 ## Usage
 
-To send notification you need to create notification objects. These objects are responsible for telling the Notifier via which channels the notification message should be sent through and how each correspnding channel message should contain.
+To send notification you need to create notification objects. These objects are responsible for telling the Notifier via which channels the notification message should be sent through and what each corresponding channel message should contain.
 
 
 ```php
