@@ -25,7 +25,11 @@ $ composer require rulecom/notifier
 To send notification you need to create notification objects that specify to which channel/channels
 you want to send the notification.
 
+
 ```php
+use RuleCom\Notifier\Channels\Email;
+use RuleCom\Notifier\Channels\Slack;
+
 class UserHasRegistered
 {
     /**
@@ -39,17 +43,83 @@ class UserHasRegistered
 
     /**
     * Each via method needs a correspondng to method.
-    * this is where we specify how the message should look.
     **/
+    * this is where we specify how the message should be built.
     public function toEmail()
     {
-        $transaction = RuleCom\ApiWrapper\Factory::make()
+        // Here you specify how the email message should look.
+    }
+
+    /**
+    * Each via method needs a correspondng to method.
+    **/
+    * this is where we specify how the message should be built.
+    public function toSlack()
+    {
+        // Here you specify how the slack message should look.
     }
 }
-``` php
-$notifier = new RuleCom\Notifier();
-echo $skeleton->echoPhrase('Hello, League!');
+
+// To send the notification to all specified channels:
+$notifier = new RuleCom\Notifier\Notifier();
+$notifier->send(new UserHasRegistered());
 ```
+
+### Channels
+
+Currently this package supports sending emails via [Rule][https://rule.se] and messages to [Slack][https://slack.com]
+
+#### Email:
+
+``` php
+public function toEmail()
+{
+    return new (RuleCom\Notifier\Channels\Email(new GuzzleHttp\Client()))
+        ->apikey('YOUR-RULE-API-KEY')
+        ->subject('Hello, world!')
+        ->from([
+            'name' => 'John Doe',
+            'email' => 'john@doe.com'
+        ])
+        ->to([
+            'name' => 'Jane Doe',
+            'email' => 'jane@doe.com'
+        ])
+        ->content([
+            'html' => '<h1>Notification sent via Rule!</h1>',
+            'html' => 'Notification sent via Rule!'
+        ]);
+}
+```
+
+#### Slack:
+``` php
+public function toSlack()
+{
+    return new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
+        ->endpoint('YOUR-SLACK-INCOMING-WEBHOOK')
+        ->channel('#notification') // Here you can override the channel specified in Slack, or send DM by passing @username
+        ->message('Hello, world!');
+}
+```
+
+### Usage with Laravel
+
+This package can be easily integrated with laravel. When used with Laravel you will not have to pass channel dependencies in your own.
+
+In your `config/app.php` add the Service Provider
+``` php
+RuleCom\Notifier\LaravelServiceProvider::class
+```
+
+``` php
+// Without Laravel you will have to pass the channel dependency:
+new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
+
+// With Laravel you can resolve the channels through the ico container:
+app(RuleCom\Notifier\Channels\Slack::class)
+```
+
 
 ## Change log
 
