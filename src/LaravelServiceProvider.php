@@ -31,7 +31,7 @@ class LaravelServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/../config/rule-notifier.php' => config_path('rule-notifier.php'),
+            __DIR__.'/../config/rule-notifier.php' => $this->app->basePath() . '/config/rule-notifier.php',
         ]);
     }
 }
