@@ -30,7 +30,7 @@ class Email implements Channel
     private $to = ['name' => '', 'email' => ''];
 
     /**
-     * @var string
+     * @var array
      */
     private $content = ['html' => '', 'plain' => ''];
 
