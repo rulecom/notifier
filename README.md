@@ -72,7 +72,7 @@ Currently this package supports the following channel providers:
 ``` php
 public function toEmail()
 {
-    return new (RuleCom\Notifier\Channels\Email(new GuzzleHttp\Client()))
+    return (new RuleCom\Notifier\Channels\Email(new GuzzleHttp\Client()))
         ->apikey('YOUR-RULE-API-KEY') // If using Laravel you can set this in config/rule-notifier.php
         ->subject('Hello, world!')
         ->from([
@@ -94,7 +94,7 @@ public function toEmail()
 ``` php
 public function toSlack()
 {
-    return new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
+    return (new RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
         ->endpoint('YOUR-SLACK-INCOMING-WEBHOOK') // If using Laravel you can set this in config/rule-notifier.php
         ->channel('#notification') // Here you can override the channel specified in Slack, or send DM by passing @username
         ->message('Hello, world!');
@@ -120,7 +120,7 @@ php artisan vendor:publish
 
 ``` php
 // Without Laravel you will have to pass the channel dependency on your own:
-new (RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
+(new RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client()))
 
 // With Laravel you can resolve the channels with dependencies through the ioc container:
 app(RuleCom\Notifier\Channels\Slack::class)
