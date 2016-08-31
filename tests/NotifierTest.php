@@ -2,9 +2,7 @@
 
 use Exception;
 use PHPUnit_Framework_TestCase;
-//use RuleCom\Notifier\Channels\TestChannel;
 use RuleCom\Notifier\Notifier;
-//use RuleCom\Notifier\Test\Fixtures\TestNotification;
 
 class NotifierTest extends PHPUnit_Framework_TestCase
 {
@@ -84,6 +82,6 @@ class TestChannel
 {
     public function dispatch()
     {
-        // TODO: Implement dispatch() method.
+
     }
 }
