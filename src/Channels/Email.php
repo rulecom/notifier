@@ -5,7 +5,7 @@ use GuzzleHttp\Client;
 class Email implements Channel
 {
     /**
-     * @var string|null
+     * @var Client
      */
     private $guzzle;
 
