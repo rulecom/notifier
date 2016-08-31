@@ -34,28 +34,26 @@ class UserHasRegistered
     /**
      * Here we specify through which channels we want to
      * send our notification.
-    **/
+    */
     public function via()
     {
         return ['email', 'slack'];
     }
 
     /**
-     * Each via method needs a correspondng to method.
-    **/
-    * this is where we specify how the message should be built.
+     * Each via method needs a correspondng "to" method.
+    */
     public function toEmail()
     {
-        // Here you specify how the email message should look.
+        // Specify what the email message should contain.
     }
 
     /**
-     * Each via method needs a correspondng to method.
-    **/
-    * this is where we specify how the message should be built.
+     * Each via method needs a correspondng "to" method.
+    */
     public function toSlack()
     {
-        // Here you specify how the slack message should look.
+        // Specify what the Slack message should contain.
     }
 }
 
