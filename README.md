@@ -7,8 +7,6 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-**Note:** Replace ```:author_name``` ```:author_username``` ```:author_website``` ```:author_email``` ```:vendor``` ```:package_name``` ```:package_description``` with their correct values in [README.md](README.md), [CHANGELOG.md](CHANGELOG.md), [CONTRIBUTING.md](CONTRIBUTING.md), [LICENSE.md](LICENSE.md) and [composer.json](composer.json) files, then delete this line.
-
 Send notifications via Rule (email/text message) and Slack. Inspired by Laravels notification system and can be used
 with the Laravel framework or completely indipendent.
 
@@ -154,17 +152,17 @@ If you discover any security related issues, please email matthis.stenius@rule.s
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/:vendor/:package_name.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/rulecom/notifier.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/:vendor/:package_name/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/:vendor/:package_name.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/:vendor/:package_name.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/:vendor/:package_name.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/rulecom/notifier/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/rulecom/notifier.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/rulecom/notifier.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/rulecom/notifier.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/:vendor/:package_name
-[link-travis]: https://travis-ci.org/:vendor/:package_name
-[link-scrutinizer]: https://scrutinizer-ci.com/g/:vendor/:package_name/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/:vendor/:package_name
-[link-downloads]: https://packagist.org/packages/:vendor/:package_name
-[link-author]: https://github.com/:author_username
+[link-packagist]: https://packagist.org/packages/rulecom/notifier
+[link-travis]: https://travis-ci.org/rulecom/notifier
+[link-scrutinizer]: https://scrutinizer-ci.com/g/rulecom/notifier/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/rulecom/notifier
+[link-downloads]: https://packagist.org/packages/rulecom/notifier
+[link-author]: https://github.com/matthisstenius
 [link-contributors]: ../../contributors
