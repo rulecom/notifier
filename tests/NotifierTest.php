@@ -2,9 +2,9 @@
 
 use Exception;
 use PHPUnit_Framework_TestCase;
-use RuleCom\Notifier\Channels\TestChannel;
+//use RuleCom\Notifier\Channels\TestChannel;
 use RuleCom\Notifier\Notifier;
-use RuleCom\Notifier\Test\Fixtures\TestNotification;
+//use RuleCom\Notifier\Test\Fixtures\TestNotification;
 
 class NotifierTest extends PHPUnit_Framework_TestCase
 {
@@ -64,5 +64,26 @@ class NotifierTest extends PHPUnit_Framework_TestCase
             ->willThrow(Exception::class);
 
         $notifier->send($notificationMock->reveal());
+    }
+}
+
+class TestNotification
+{
+    public function via()
+    {
+
+    }
+
+    public function toTest()
+    {
+
+    }
+}
+
+class TestChannel
+{
+    public function dispatch()
+    {
+        // TODO: Implement dispatch() method.
     }
 }
