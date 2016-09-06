@@ -21,8 +21,7 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
-
-## Next - 2016-09-06
+## 2016-09-06
 
 ### Added
 - Nothing
