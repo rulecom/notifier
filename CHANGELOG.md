@@ -21,6 +21,24 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 ### Security
 - Nothing
 
+
+## Next - 2016-09-06
+
+### Added
+- Nothing
+
+### Deprecated
+- Nothing
+
+### Fixed
+- Changed PHP version requirement to accept 5.5
+
+### Removed
+- Nothing
+
+### Security
+- Nothing
+
 ## 1.1.0 - 2016-08-31
 
 ### Added
