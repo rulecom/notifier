@@ -94,19 +94,33 @@ class Email implements Channel
      */
     public function dispatch()
     {
-        $this->guzzle->post('https://app.rule.io/api/v2/transactionals', [
-            'json' => [
-                'apikey' => $this->apiKey,
-                'transaction_type' => 'email',
-                'transaction_name' => $this->subject,
-                'subject' => $this->subject,
-                'from' => $this->from,
-                'to' => $this->to,
-                'content' => [
-                    'html' => base64_encode($this->content['html']),
-                    'plain' => base64_encode($this->content['plain'])
+        foreach ($this->extractRecipients() as $recipient) {
+            $this->guzzle->post('https://app.rule.io/api/v2/transactionals', [
+                'json' => [
+                    'apikey' => $this->apiKey,
+                    'transaction_type' => 'email',
+                    'transaction_name' => $this->subject,
+                    'subject' => $this->subject,
+                    'from' => $this->from,
+                    'to' => $recipient,
+                    'content' => [
+                        'html' => base64_encode($this->content['html']),
+                        'plain' => base64_encode($this->content['plain'])
+                    ]
                 ]
-            ]
-        ]);
+            ]);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function extractRecipients()
+    {
+        if (is_array(reset($this->to))) {
+            return $this->to;
+        }
+
+        return [$this->to];
     }
 }
