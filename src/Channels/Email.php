@@ -1,6 +1,8 @@
 <?php namespace RuleCom\Notifier\Channels;
 
 use GuzzleHttp\Client;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class Email implements Channel
 {
@@ -34,9 +36,25 @@ class Email implements Channel
      */
     private $content = ['html' => '', 'plain' => ''];
 
-    public function __construct(Client $guzzle)
+    /**
+     * @var bool
+     */
+    private $debug = false;
+
+    /**
+     * @var string
+     */
+    private $logPath;
+
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    public function __construct(Client $guzzle, Logger $logger = null)
     {
         $this->guzzle = $guzzle;
+        $this->logger = $logger;
     }
 
     /**
@@ -89,11 +107,21 @@ class Email implements Channel
         return $this;
     }
 
+    public function debug($logPath)
+    {
+        $this->debug = true;
+        $this->logPath = $logPath;
+        return $this;
+    }
     /**
      * Dispatches notification message to Rule
      */
     public function dispatch()
     {
+        if ($this->debug) {
+            return $this->fakeDispatch();
+        }
+
         foreach ($this->extractRecipients() as $recipient) {
             $this->guzzle->post('https://app.rule.io/api/v2/transactionals', [
                 'json' => [
@@ -122,5 +150,19 @@ class Email implements Channel
         }
 
         return [$this->to];
+    }
+
+    /**
+     * Fakes dispatch by logging instead
+     */
+    private function fakeDispatch()
+    {
+        $this->logger->pushHandler(new StreamHandler($this->logPath));
+        $this->logger->addInfo('Email:', [
+            'from' => $this->from,
+            'to' => $this->extractRecipients(),
+            'subject' => $this->subject,
+            'content' => $this->content
+        ]);
     }
 }

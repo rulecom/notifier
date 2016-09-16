@@ -14,12 +14,24 @@ class LaravelServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $debugEnabled = $this->app['config']['rule-notifier']['debug'];
+
         $emailChannel = new Email(new Client);
         $emailChannel->apiKey($this->app['config']['rule-notifier']['api_key']);
+
+        if ($debugEnabled) {
+            $emailChannel->debug($this->app['config']['rule-notifier']['log_path']);
+        }
+
         $this->app->instance(Email::class, $emailChannel);
 
         $slackChannel = new Slack(new Client);
         $slackChannel->endpoint($this->app['config']['rule-notifier']['slack_endpoint']);
+
+        if ($debugEnabled) {
+            $slackChannel->debug($this->app['config']['rule-notifier']['log_path']);
+        }
+
         $this->app->instance(Slack::class, $slackChannel);
     }
 
