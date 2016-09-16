@@ -1,6 +1,8 @@
 <?php namespace RuleCom\Notifier\Channels;
 
 use GuzzleHttp\Client;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 class Slack implements Channel
 {
@@ -24,9 +26,32 @@ class Slack implements Channel
      */
     private $message;
 
-    public function __construct(Client $client)
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * @var string
+     */
+    private $logPath;
+
+    /**
+     * @var bool
+     */
+    private $debug = false;
+
+    public function __construct(Client $client, Logger $logger = null)
     {
         $this->client = $client;
+        $this->logger = $logger;
+    }
+
+    public function debug($logPath)
+    {
+        $this->debug = true;
+        $this->logPath = $logPath;
+        return $this;
     }
 
     /**
@@ -64,11 +89,24 @@ class Slack implements Channel
      */
     public function dispatch()
     {
+        if ($this->debug) {
+            return $this->fakeDispatch();
+        }
+
         $this->client->post($this->endpoint, [
             'json' => [
                 'channel' => $this->channel,
                 'text' => $this->message
             ]
         ]);
+    }
+
+    /**
+     * Fakes dispatch by logging instead
+     */
+    private function fakeDispatch()
+    {
+        $this->logger->pushHandler(new StreamHandler($this->logPath));
+        $this->logger->addInfo('Slack:', ['endpoint' => $this->endpoint, 'message' => $this->message]);
     }
 }

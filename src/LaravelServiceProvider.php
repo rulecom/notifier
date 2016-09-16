@@ -2,6 +2,7 @@
 
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
+use Monolog\Logger;
 use RuleCom\Notifier\Channels\Email;
 use RuleCom\Notifier\Channels\Slack;
 
@@ -14,12 +15,24 @@ class LaravelServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $emailChannel = new Email(new Client);
+        $debugEnabled = $this->app['config']['rule-notifier']['debug'];
+
+        $emailChannel = new Email(new Client, new Logger('Notification logger'));
         $emailChannel->apiKey($this->app['config']['rule-notifier']['api_key']);
+
+        if ($debugEnabled) {
+            $emailChannel->debug($this->app['config']['rule-notifier']['log_path']);
+        }
+
         $this->app->instance(Email::class, $emailChannel);
 
-        $slackChannel = new Slack(new Client);
+        $slackChannel = new Slack(new Client, new Logger('Notification logger'));
         $slackChannel->endpoint($this->app['config']['rule-notifier']['slack_endpoint']);
+
+        if ($debugEnabled) {
+            $slackChannel->debug($this->app['config']['rule-notifier']['log_path']);
+        }
+
         $this->app->instance(Slack::class, $slackChannel);
     }
 
