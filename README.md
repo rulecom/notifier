@@ -137,7 +137,7 @@ To enable debug:
 2. Call the `debug` method and pass in a path to your logfile.
 
 ```php
-return (new RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client(), new Monolog\Logger()))
+return (new RuleCom\Notifier\Channels\Slack(new GuzzleHttp\Client(), new Monolog\Logger('Notification logger')))
         ->debug('path/to/file.log') // If using Laravel you can set both debug mode and log path in config/rule-notifier.php
         ->endpoint('YOUR-SLACK-INCOMING-WEBHOOK') // If using Laravel you can set this in config/rule-notifier.php
         ->channel('#notification') // Here you can override the channel specified in Slack, or send DM by passing @username

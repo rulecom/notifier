@@ -17,7 +17,7 @@ class LaravelServiceProvider extends ServiceProvider
     {
         $debugEnabled = $this->app['config']['rule-notifier']['debug'];
 
-        $emailChannel = new Email(new Client, new Logger);
+        $emailChannel = new Email(new Client, new Logger('Notification logger'));
         $emailChannel->apiKey($this->app['config']['rule-notifier']['api_key']);
 
         if ($debugEnabled) {
@@ -26,7 +26,7 @@ class LaravelServiceProvider extends ServiceProvider
 
         $this->app->instance(Email::class, $emailChannel);
 
-        $slackChannel = new Slack(new Client, new Logger);
+        $slackChannel = new Slack(new Client, new Logger('Notification logger'));
         $slackChannel->endpoint($this->app['config']['rule-notifier']['slack_endpoint']);
 
         if ($debugEnabled) {
