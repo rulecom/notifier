@@ -19,7 +19,7 @@
     "require": {
         "php": "~5.5|~7.0",
         "guzzlehttp/guzzle": "~6.2",
-        "illuminate/support": "~5.1",
+        "illuminate/support": "~5.1|~6.2",
         "monolog/monolog": "^1.21"
     },
     "require-dev": {
