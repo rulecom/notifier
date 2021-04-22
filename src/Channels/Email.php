@@ -158,7 +158,7 @@ class Email implements Channel
     private function fakeDispatch()
     {
         $this->logger->pushHandler(new StreamHandler($this->logPath));
-        $this->logger->addInfo('Email:', [
+        $this->logger->info('Email:', [
             'from' => $this->from,
             'to' => $this->extractRecipients(),
             'subject' => $this->subject,

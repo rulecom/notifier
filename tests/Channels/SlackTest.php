@@ -49,7 +49,7 @@ class SlackTest extends PHPUnit_Framework_TestCase
         $monologMock->pushHandler(new StreamHandler('path/to/log'))
             ->shouldHaveBeenCalled();
 
-        $monologMock->addInfo('Slack:', ['endpoint' => 'https://dummy-endpoint', 'message' => 'Test message'])
+        $monologMock->info('Slack:', ['endpoint' => 'https://dummy-endpoint', 'message' => 'Test message'])
             ->shouldHaveBeenCalled();
     }
 }

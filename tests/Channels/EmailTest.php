@@ -129,7 +129,7 @@ class EmailTest extends PHPUnit_Framework_TestCase
         $monologMock->pushHandler(new StreamHandler('path/to/log'))
             ->shouldHaveBeenCalled();
 
-        $monologMock->addInfo('Email:', [
+        $monologMock->info('Email:', [
             'subject' => 'Test subject',
             'from' => ['name' => 'Tester', 'email' => 'tester@tester.com'],
             'to' => [['name' => 'Tester', 'email' => 'other@tester.com']],

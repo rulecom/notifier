@@ -107,6 +107,6 @@ class Slack implements Channel
     private function fakeDispatch()
     {
         $this->logger->pushHandler(new StreamHandler($this->logPath));
-        $this->logger->addInfo('Slack:', ['endpoint' => $this->endpoint, 'message' => $this->message]);
+        $this->logger->info('Slack:', ['endpoint' => $this->endpoint, 'message' => $this->message]);
     }
 }
